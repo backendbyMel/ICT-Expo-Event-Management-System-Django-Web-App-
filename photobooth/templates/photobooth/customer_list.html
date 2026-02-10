@@ -1,0 +1,53 @@
+{% extends "typingSprint/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Photobooth Customer List</h2>
+
+<a href="{% url 'photobooth-add_customer' %}" class="link-primary">Add New Customer</a>
+<hr>
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Customer Name</th>
+            <th>Section</th>
+            <th>Photos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{% url 'customer_photos' customer.id %}">{{ customer.name }}</a></td>
+            <td>{{ customer.section }}</td>
+            <td>
+                {% if customer.photos.all %}
+                    {{ customer.photos.count }} photo(s)
+                {% else %}
+                    0
+                {% endif %}
+            </td>
+            
+            <!-- <td>
+                {% if user.is_authenticated %}
+                    {% if user.profile.is_uploader %}
+                        <a href="{% url 'photobooth_upload' customer.id %}">Upload Photos</a>
+                    {% endif %}
+                    {% if user.profile.is_downloader %}
+                        <a href="{% url 'customer_photos' customer.id %}">Download Photos</a>
+                    {% endif %}
+                    {% if user.profile.is_cashier %}
+                        <a href="{% url 'record_payment' customer.id %}">Record Payment</a>
+                    {% endif %}
+                {% endif %}
+            </td> -->
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No customers yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

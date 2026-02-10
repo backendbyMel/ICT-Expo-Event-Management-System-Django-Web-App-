@@ -1,0 +1,13 @@
+{% extends "typingSprint/base.html" %}
+
+{% block content %}
+<h2>Upload Photo for {{ challenger.name }} (Top 10)</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload Photo</button>
+</form>
+
+<a href="{% url 'typingSprint-home' %}">Back to Top 10</a>
+{% endblock %}

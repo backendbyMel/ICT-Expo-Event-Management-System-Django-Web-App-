@@ -1,0 +1,75 @@
+{% extends "typingSprint/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+<h2 class="text-center mb-4">
+        🏁 Typing Sprint Challenge – Top 10
+    </h2>    
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Rank</th>
+        <th scope="col">Name</th>
+        <th scope="col">Year & Section</th>
+        <th scope="col">Net Speed(WPM)</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for challenger in challengers %}
+            <tr
+                    {% if forloop.counter == 1 %} class="table-warning" {% endif %}
+                    {% if forloop.counter == 2 %} class="table-secondary" {% endif %}
+                    {% if forloop.counter == 3 %} class="table-info" {% endif %}
+                >
+                <td>
+                        <strong>#{{ forloop.counter }}</strong>
+                    </td>
+                    <td>
+                        <a href="{% url 'typingSprint-detail' challenger.id %}">{{ challenger.name }}</a>
+                        {% if forloop.counter <= 3 %}
+                            <span>🏆</span>
+                        {% endif %}
+                    </td>
+                <td>{{ challenger.section }}</td>
+                 <td>
+                        <strong>{{ challenger.speed_score }}</strong>
+                    </td>
+                    <td>
+                        {% if challenger.photo %}
+                            <img src="{{ challenger.photo.url }}" style="width:40px;height:40px;border-radius:50;">
+                        {% else %}
+                            <a href="{% url 'upload_photo' challenger.id %}">Upload Photo</a>
+                        {% endif %}
+                    </td>
+            </tr>
+        {% endfor %}
+        
+    </tbody>
+    </table>
+    </div>
+     <div class="col-md-4">
+            <h5 class="mb-3 text-muted">Ranks 11–50</h5>
+
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Speed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for challenger in top50 %}
+                    <tr style="font-size: 0.85rem;">
+                        <td>{{ forloop.counter|add:"10" }}</td>
+                        <td>{{ challenger.name }}</td>
+                        <td>{{ challenger.speed_score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</div>
+    </div>
+{% endblock %}

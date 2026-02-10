@@ -1,0 +1,11 @@
+{% extends "typingSprint/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Add New Customer for Photobooth</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Create Customer</button>
+</form>
+{% endblock content %}

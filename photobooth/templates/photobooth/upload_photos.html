@@ -1,0 +1,10 @@
+{% extends "typingSprint/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Upload Photos for {{ customer.name }}</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="photo" multiple>
+    <button type="submit">Upload</button>
+</form>
+{% endblock content %}

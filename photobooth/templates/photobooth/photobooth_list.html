@@ -1,0 +1,27 @@
+{% extends "typingSprint/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Download / Print Photos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Section</th>
+            <th>Photo</th>
+            <th>Printed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for photo in photos %}
+        <tr>
+            <td>{{ photo.customer_name }}</td>
+            <td>{{ photo.customer_section }}</td>
+            <td>
+                <a href="{{ photo.photo.url }}" download>Download</a>
+            </td>
+            <td>{{ photo.printed }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
